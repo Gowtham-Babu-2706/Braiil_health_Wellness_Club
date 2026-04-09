@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const About = () => {
   const carddetail = [
@@ -23,7 +24,13 @@ const About = () => {
     <section className="py-20 px-6 md:px-16 bg-white grid grid-cols-1 md:grid-cols-2 gap-12">
 
       {/* LEFT SIDE */}
-      <div className="flex flex-col gap-10">
+      <motion.div 
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+        className="flex flex-col gap-10"
+      >
         
         {/* Heading */}
         <div>
@@ -66,10 +73,16 @@ const About = () => {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* RIGHT SIDE */}
-      <div className="bg-gradient-to-br from-sage/80 to-green-400/70 p-8 md:p-10 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="bg-gradient-to-br from-sage/80 to-green-400/70 p-8 md:p-10 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg"
+      >
         
         {/* Quote */}
         <p className="text-2xl md:text-3xl italic text-gray-800 leading-relaxed">
@@ -102,7 +115,7 @@ const About = () => {
           </div>
 
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

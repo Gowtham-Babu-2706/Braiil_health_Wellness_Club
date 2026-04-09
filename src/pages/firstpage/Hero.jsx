@@ -1,11 +1,17 @@
+import { motion } from "framer-motion";
+
 const Hero = () => {
   return (
-    <section className="min-h-screen min-w-screen flex items-center px-6 md:px-16 pt-24 bg-cream">
+    <section className="min-h-screen w-full flex items-center px-6 md:px-16 pt-24 bg-cream">
       
       <div className="grid md:grid-cols-2 gap-10 items-center w-full max-w-6xl mx-auto">
 
         {/* LEFT */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <span className="text-xs tracking-widest bg-sage/10 text-sage px-4 py-2 rounded-full">
              Mental Wellness × EdTech
           </span>
@@ -28,10 +34,15 @@ const Hero = () => {
               Learn More
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* RIGHT CARD */}
-        <div className="bg-white rounded-3xl shadow-2xl p-6 text-center">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="bg-white rounded-3xl shadow-2xl p-6 text-center"
+        >
           <div className="bg-sage text-white p-6 rounded-2xl">
             <h2 className="text-xl font-bold">BRAIIL</h2>
             <p className="text-xs uppercase">Mental Wellness Club</p>
@@ -51,7 +62,7 @@ const Hero = () => {
               <p className="text-xs">Colleges</p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </section>
