@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
   { label: "Home", to: "/" },
-  { label: "Courses", to: "/courses" },
+  // { label: "Courses", to: "/courses" },
   { label: "Gallery", to: "/collection" },
   { label: "Partnership", to: "/partnership" },
   { label: "Contact Us", to: "/contact" },
@@ -51,7 +51,7 @@ const Navbar = () => {
         to="/"
         className="font-serif text-xl text-sage font-bold flex gap-2 items-center"
       >
-        🧠 BRAIIL
+        <img src="/Logo.png" alt="Braiil Logo" className="h-10 w-auto object-contain" /> BRAIIL
         <div className="font-sans text-gray-700 font-light text-[0.6rem] tracking-wide border-l-2 border-sage/30 pl-3">
           <div>HEALTH WELLNESS</div>
           <div>EDTECH PVT LTD</div>

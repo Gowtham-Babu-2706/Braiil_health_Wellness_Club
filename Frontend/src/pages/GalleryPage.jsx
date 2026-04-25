@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { fetchSectionData } from "../utils/supabaseClient";
 
-const galleryItems = [
+// Fallback layout and data in case Supabase is not yet populated
+const fallbackGalleryItems = [
   {
     id: 1,
     category: "workshops",
@@ -11,6 +14,7 @@ const galleryItems = [
     gradient: "from-sage/60 to-green-700/70",
     span: "col-span-2 row-span-2",
     desc: "A transformative session on emotional regulation",
+    image_url: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2120&auto=format&fit=crop"
   },
   {
     id: 2,
@@ -21,6 +25,7 @@ const galleryItems = [
     gradient: "from-gold/50 to-amber-600/60",
     span: "",
     desc: "Celebrating student achievements",
+    image_url: "https://images.unsplash.com/photo-1523580494112-071d16940d14?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 3,
@@ -31,6 +36,7 @@ const galleryItems = [
     gradient: "from-green-400/50 to-emerald-700/60",
     span: "",
     desc: "Mental health awareness on campuses",
+    image_url: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 4,
@@ -41,6 +47,7 @@ const galleryItems = [
     gradient: "from-primary/40 to-indigo-700/60",
     span: "",
     desc: "Hands-on AI & machine learning sessions",
+    image_url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 5,
@@ -51,6 +58,7 @@ const galleryItems = [
     gradient: "from-gold/40 to-orange-600/50",
     span: "",
     desc: "Bringing institutional partners together",
+    image_url: "https://images.unsplash.com/photo-1515169067868-5387ec356754?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 6,
@@ -61,6 +69,7 @@ const galleryItems = [
     gradient: "from-sage/50 to-teal-700/60",
     span: "col-span-2",
     desc: "Intensive two-day resilience building program",
+    image_url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop"
   },
   {
     id: 7,
@@ -71,6 +80,7 @@ const galleryItems = [
     gradient: "from-purple-400/40 to-violet-700/50",
     span: "",
     desc: "Sound healing for student communities",
+    image_url: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 8,
@@ -81,6 +91,7 @@ const galleryItems = [
     gradient: "from-cyan-400/40 to-blue-700/50",
     span: "",
     desc: "Student-led research presentations",
+    image_url: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 9,
@@ -91,6 +102,7 @@ const galleryItems = [
     gradient: "from-rose-400/40 to-pink-700/50",
     span: "",
     desc: "Developing emotionally intelligent leaders",
+    image_url: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop"
   },
 ];
 
@@ -104,8 +116,27 @@ const stats = [
 ];
 
 const GalleryPage = () => {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("all");
   const [hoveredId, setHoveredId] = useState(null);
+  const [galleryItems, setGalleryItems] = useState(fallbackGalleryItems);
+
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      // This will pull from your 'gallery' table in Supabase
+      const data = await fetchSectionData("gallery");
+      
+      if (data && data.length > 0) {
+        // Map Supabase data into our existing masonry layout
+        const mergedData = data.map((item, index) => ({
+          ...fallbackGalleryItems[index % fallbackGalleryItems.length], // keep layout span/gradient
+          ...item // override with DB data (like image_url from S3)
+        }));
+        setGalleryItems(mergedData);
+      }
+    };
+    fetchGalleryImages();
+  }, []);
 
   const filtered =
     activeFilter === "all"
@@ -194,43 +225,57 @@ const GalleryPage = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
               key={item.id}
+              onClick={() => navigate(`/collection/${item.category.toLowerCase()}`)}
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
               className={`relative rounded-3xl overflow-hidden cursor-pointer group ${item.span} bg-gradient-to-br ${item.gradient} transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-sage/20`}
             >
-              {/* Background texture */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_60%)]" />
+              {/* S3 IMAGE RENDER */}
+              {item.image_url ? (
+                <>
+                  <img 
+                    src={item.image_url} 
+                    alt={item.title} 
+                    className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-1000 group-hover:scale-110 group-hover:rotate-1"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-warm-dark/90 via-warm-dark/20 to-transparent z-0 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+                </>
+              ) : (
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_60%)]" />
+              )}
 
               {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-between p-5">
+              <div className="absolute inset-0 flex flex-col justify-between p-5 z-10">
                 {/* Top: category badge */}
-                <span className="self-start text-[0.65rem] tracking-widest uppercase bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full border border-white/30">
+                <span className="self-start text-[0.65rem] tracking-widest uppercase bg-black/20 backdrop-blur-md text-white px-3 py-1 rounded-full border border-white/20 shadow-sm">
                   {item.category}
                 </span>
 
-                {/* Center: emoji */}
-                <div className="flex-1 flex items-center justify-center">
-                  <span
-                    className="transition-transform duration-500 group-hover:scale-110"
-                    style={{ fontSize: item.span.includes("col-span-2") ? "5rem" : "3rem" }}
-                  >
-                    {item.emoji}
-                  </span>
-                </div>
+                {/* Center: emoji (Only show if no image exists) */}
+                {!item.image_url && (
+                  <div className="flex-1 flex items-center justify-center">
+                    <span
+                      className="transition-transform duration-500 group-hover:scale-110"
+                      style={{ fontSize: item.span.includes("col-span-2") ? "5rem" : "3rem" }}
+                    >
+                      {item.emoji}
+                    </span>
+                  </div>
+                )}
 
                 {/* Bottom: info */}
                 <div
-                  className={`transition-all duration-400 ${
+                  className={`mt-auto transition-all duration-400 ${
                     hoveredId === item.id ? "translate-y-0 opacity-100" : "translate-y-2 opacity-90"
                   }`}
                 >
-                  <p className="text-white font-serif font-bold text-sm md:text-base leading-tight drop-shadow">
+                  <p className="text-white font-serif font-bold text-sm md:text-base leading-tight drop-shadow-md">
                     {item.title}
                   </p>
-                  <p className="text-white/70 text-xs mt-1 font-sans">{item.subtitle}</p>
+                  <p className="text-white/80 text-xs mt-1 font-sans drop-shadow-sm">{item.subtitle}</p>
                   <p
-                    className={`text-white/80 text-xs mt-2 font-sans leading-relaxed transition-all duration-400 ${
-                      hoveredId === item.id ? "max-h-10 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+                    className={`text-white/90 text-xs mt-2 font-sans leading-relaxed transition-all duration-400 ${
+                      hoveredId === item.id ? "max-h-12 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
                     }`}
                   >
                     {item.desc}
@@ -238,8 +283,6 @@ const GalleryPage = () => {
                 </div>
               </div>
 
-              {/* Hover shimmer */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </motion.div>
           ))}
         </motion.div>

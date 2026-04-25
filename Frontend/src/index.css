@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* 🌿 Primary Brand */
-  --color-sage: #6B8F71;
-  --color-sage-light: #A8C5AE;
-  --color-sage-pale: #E8F0EA;
+  /* 🌿 Primary Brand (Matched to Logo Blue) */
+  --color-sage: #004EA3;
+  --color-sage-light: #5A8FC4;
+  --color-sage-pale: #E6F0FA;
 
   /* 🎨 Backgrounds */
   --color-cream: #FBF8F3;

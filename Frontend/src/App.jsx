@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import GalleryPage from "./pages/GalleryPage";
 import CoursesPage from "./pages/CoursesPage";
 import PartnershipPage from "./pages/PartnershipPage";
+import AlbumPage from "./pages/AlbumPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/collection" element={<GalleryPage />} />
+        <Route path="/collection/:category" element={<AlbumPage />} />
         <Route path="/courses" element={<CoursesPage />} />
         <Route path="/partnership" element={<PartnershipPage />} />
       </Routes>
