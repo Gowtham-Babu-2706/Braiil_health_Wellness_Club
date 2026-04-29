@@ -4,7 +4,7 @@ const infoCards = [
   {
     icon: "📞",
     title: "Phone",
-    value: "72001 – 96121",
+    value: "+91 9629117455",
     subtitle: "Mon-Fri, 9am to 6pm",
     gradient: "from-sage/10 to-green-100",
     border: "border-sage/30",
@@ -20,7 +20,7 @@ const infoCards = [
   {
     icon: "📧",
     title: "Email",
-    value: "hello@braiil.com",
+    value: "Braiilacademy@gmail.com",
     subtitle: "We usually reply within 24 hours",
     gradient: "from-amber-50 to-yellow-100",
     border: "border-amber-200",
@@ -101,15 +101,16 @@ const Contact = () => {
             </div>
           ))}
 
-          {/* Social Links (Placeholders) */}
+          {/* Social Links */}
           <div className="mt-6">
              <p className="text-xs tracking-widest text-gray-400 uppercase mb-4">Follow Our Journey</p>
              <div className="flex gap-4">
-                {['LinkedIn', 'Twitter', 'Instagram'].map((social, idx) => (
-                  <a key={idx} href="#" className="text-sm font-sans font-medium text-sage hover:text-gold hover:underline transition-colors">
-                    {social}
-                  </a>
-                ))}
+                <a href="https://linkedin.com/in/dr-sriarthi-manoharan-44514447" target="_blank" rel="noopener noreferrer" className="text-sm font-sans font-medium text-sage hover:text-gold hover:underline transition-colors">
+                  LinkedIn
+                </a>
+                <a href="https://www.instagram.com/braiilacademy?igsh=Y2Y5MmMyZXB1OXht" target="_blank" rel="noopener noreferrer" className="text-sm font-sans font-medium text-sage hover:text-gold hover:underline transition-colors">
+                  Instagram
+                </a>
              </div>
           </div>
         </div>

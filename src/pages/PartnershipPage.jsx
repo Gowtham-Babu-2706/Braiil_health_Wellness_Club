@@ -62,26 +62,10 @@ const benefits = [
 const partnerLogos = [
   { name: "SkillEdge", initial: "SE", color: "bg-sage/10 text-sage" },
   { name: "MindBridge", initial: "MB", color: "bg-indigo-100 text-indigo-700" },
-  { name: "FutureLearn", initial: "FL", color: "bg-amber-100 text-amber-700" },
-  { name: "WellCo", initial: "WC", color: "bg-emerald-100 text-emerald-700" },
-  { name: "TechNest", initial: "TN", color: "bg-rose-100 text-rose-700" },
-  { name: "InnovatED", initial: "IE", color: "bg-purple-100 text-purple-700" },
-  { name: "GreenMind", initial: "GM", color: "bg-teal-100 text-teal-700" },
-  { name: "PeerUp", initial: "PU", color: "bg-orange-100 text-orange-700" },
 ];
 
 const PartnershipPage = () => {
   const [selectedType, setSelectedType] = useState(0);
-  const [formData, setFormData] = useState({
-    org: "", contact: "", email: "", phone: "", type: "Academic Partners", message: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
-  };
 
   return (
     <div className="min-h-screen bg-cream font-sans">
@@ -251,97 +235,6 @@ const PartnershipPage = () => {
             </h2>
             <p className="text-gray-500 text-sm mt-3 font-sans">Fill in your details and our team will reach out within 48 hours.</p>
           </div>
-
-          {submitted ? (
-            <div className="bg-sage/10 border border-sage/30 rounded-3xl p-12 text-center">
-              <span className="text-5xl">🎉</span>
-              <h3 className="text-2xl font-serif font-bold text-sage mt-4">Application Submitted!</h3>
-              <p className="text-gray-500 font-sans mt-2">Thank you for your interest. Our team will contact you within 48 hours.</p>
-            </div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              className="bg-white rounded-3xl p-8 md:p-12 shadow-xl shadow-sage/10 flex flex-col gap-5"
-            >
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className="text-xs text-gray-600 font-sans block mb-1">Organization Name *</label>
-                  <input
-                    required
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-sans focus:outline-none focus:border-sage transition-colors"
-                    placeholder="Your organization"
-                    value={formData.org}
-                    onChange={(e) => setFormData({ ...formData, org: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <label className="text-xs text-gray-600 font-sans block mb-1">Contact Person *</label>
-                  <input
-                    required
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-sans focus:outline-none focus:border-sage transition-colors"
-                    placeholder="Full name"
-                    value={formData.contact}
-                    onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-                  />
-                </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className="text-xs text-gray-600 font-sans block mb-1">Email Address *</label>
-                  <input
-                    required
-                    type="email"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-sans focus:outline-none focus:border-sage transition-colors"
-                    placeholder="org@email.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <label className="text-xs text-gray-600 font-sans block mb-1">Phone Number</label>
-                  <input
-                    type="tel"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-sans focus:outline-none focus:border-sage transition-colors"
-                    placeholder="+91 9876543210"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="text-xs text-gray-600 font-sans block mb-1">Partnership Type *</label>
-                <div className="relative">
-                  <select
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-sans focus:outline-none focus:border-sage bg-white appearance-none transition-colors"
-                    value={formData.type}
-                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                  >
-                    <option>Academic Partners</option>
-                    <option>Corporate Partners</option>
-                    <option>NGO & Social Partners</option>
-                    <option>Media & Tech Partners</option>
-                  </select>
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs">▼</span>
-                </div>
-              </div>
-              <div>
-                <label className="text-xs text-gray-600 font-sans block mb-1">Message / Vision</label>
-                <textarea
-                  rows={4}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-sans focus:outline-none focus:border-sage transition-colors resize-none"
-                  placeholder="Tell us about your organization and what you hope to achieve through this partnership..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-sage text-white py-4 rounded-full font-sans font-medium hover:shadow-xl hover:shadow-sage/30 hover:scale-[1.01] transition-all duration-300 mt-2"
-              >
-                Submit Partnership Application ✓
-              </button>
-            </form>
-          )}
         </div>
       </section>
     </div>
