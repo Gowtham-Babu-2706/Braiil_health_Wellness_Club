@@ -11,11 +11,19 @@ const infoCards = [
   },
   {
     icon: "🏢",
-    title: "Headquarters",
-    value: "BRAIIL EdTech Pvt Ltd",
-    subtitle: "Pan-India Operations",
+    title: "Trichy Campus",
+    value: "Sri Renga Complex",
+    subtitle: "2nd floor, 4, Karumandapam, Tiruchirappalli, Tamil Nadu 620001",
     gradient: "from-indigo-50 to-blue-100",
     border: "border-indigo-200",
+  },
+  {
+    icon: "🏫",
+    title: "Chennai Campus",
+    value: "MMDA Colony",
+    subtitle: "4/267, 8th street 1st main road, Maduravoyal, Chennai 600095",
+    gradient: "from-blue-50 to-indigo-100",
+    border: "border-blue-200",
   },
   {
     icon: "📧",
