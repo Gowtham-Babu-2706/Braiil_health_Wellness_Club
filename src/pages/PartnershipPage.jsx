@@ -60,8 +60,9 @@ const benefits = [
 ];
 
 const partnerLogos = [
-  { name: "SkillEdge", initial: "SE", color: "bg-sage/10 text-sage" },
-  { name: "MindBridge", initial: "MB", color: "bg-indigo-100 text-indigo-700" },
+  { name: "KronixTech", role: "AI Tech Partner", initial: "KT", link: "", logo: "https://braiilpictures-565122144511-eu-north-1-an.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2026-04-29+at+7.32.42+PM.jpeg", color: "bg-indigo-50 text-indigo-700 border border-indigo-100" },
+  { name: "Only Interns", role: "Internship Partner", initial: "OI", link: "", logo: "https://braiilpictures-565122144511-eu-north-1-an.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2026-04-29+at+7.33.36+PM.jpeg", color: "bg-amber-50 text-amber-700 border border-amber-100" },
+  { name: "Apsung Global", role: "Recruitment Partner", initial: "AG", link: "", logo: "https://braiilpictures-565122144511-eu-north-1-an.s3.eu-north-1.amazonaws.com/WhatsApp+Image+2026-04-30+at+8.41.34+AM.jpeg", color: "bg-emerald-50 text-emerald-700 border border-emerald-100" },
 ];
 
 const PartnershipPage = () => {
@@ -210,17 +211,27 @@ const PartnershipPage = () => {
             Trusted By <span className="text-sage italic">Great Organizations</span>
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="flex flex-wrap justify-center gap-6">
           {partnerLogos.map((p, i) => (
-            <div
+            <a
               key={i}
-              className={`${p.color} rounded-2xl px-6 py-8 flex flex-col items-center gap-3 font-sans hover:scale-105 hover:shadow-lg transition-all duration-300 cursor-pointer`}
+              href={p.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${p.color} w-64 rounded-2xl px-6 py-8 flex flex-col items-center gap-3 font-sans hover:scale-105 hover:shadow-lg transition-all duration-300 cursor-pointer`}
             >
-              <div className="w-14 h-14 rounded-xl bg-white/60 flex items-center justify-center text-xl font-bold font-serif shadow-sm">
-                {p.initial}
+              <div className="w-16 h-16 rounded-xl bg-white/60 flex items-center justify-center text-2xl font-bold font-serif shadow-sm overflow-hidden">
+                {p.logo ? (
+                  <img src={p.logo} alt={`${p.name} logo`} className="w-full h-full object-contain" />
+                ) : (
+                  p.initial
+                )}
               </div>
-              <p className="text-sm font-semibold text-center">{p.name}</p>
-            </div>
+              <div className="text-center">
+                <p className="text-base font-bold">{p.name}</p>
+                <p className="text-xs font-medium mt-1 opacity-80 uppercase tracking-wider">{p.role}</p>
+              </div>
+            </a>
           ))}
         </div>
       </section>
